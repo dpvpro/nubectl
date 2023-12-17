@@ -21,7 +21,7 @@ $ go install github.com/cbsd/nubectl@latest
 
 ## Usage
 
-**nubectl** can be used with any CBSD-based platform, self-hosted, cloud-hosted or both
+**nubectl** can be used with any CBSD-based platform (ClonOS, MyBee, CBSD+API), self-hosted, cloud-hosted or both
 
 ### with on-premise [CBSD](https://github.com/cbsd/cbsd) cluster
 
@@ -101,6 +101,3 @@ This project is under heavy development. Anything can be changed rapidly for no 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
-
-## License
-[WTFPL](http://www.wtfpl.net/)
