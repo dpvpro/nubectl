@@ -1,0 +1,8 @@
+misc
+.idea
+main
+go.*
+nubectl
+nubectl-windows
+src/*
+cloud.yaml
