@@ -74,7 +74,6 @@ func main() {
 	// keypath: get from args
 	if len(*cloud_key) > 1 {
 		keypath = *cloud_key
-		//fmt.Println("hello world")
 	} else {
 		// keyppath: get from env(1)
 		keypath = os.Getenv("CLOUD_KEY")
@@ -150,5 +149,4 @@ func main() {
 		}
 	}
 
-	//fmt.Println(pubkey)
 }

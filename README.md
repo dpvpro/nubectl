@@ -9,8 +9,8 @@ Download the repo, compile the code for your platform.
 ```bash
 $ git clone https://github.com/cbsd/nubectl
 $ cd nubectl
-$ ./build.sh
-$ mv nubectl/nubectl /usr/local/bin/nubectl
+$ go build .
+$ mv nubectl /usr/local/bin/
 
 ```
 
