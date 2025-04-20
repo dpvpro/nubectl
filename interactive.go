@@ -1,33 +1,35 @@
 package main
 
 import (
-	"fmt"
-	"github.com/manifoldco/promptui"
-	"strconv"
 	"encoding/json"
-	"io/ioutil"
+	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
+
+	"github.com/manifoldco/promptui"
 )
 
 // image sample
 // curl https://bitclouds.sh/images
-//{
-//  "images": [
-//    "ubuntu", 
-//    "bitcoind", 
-//    "centos", 
-//    "clightning", 
-//    "bsdjail", 
-//    "lnd", 
-//    "freebsd", 
-//    "debian", 
-//    "freebsd-ufs", 
-//    "netbsd", 
-//    "openbsd"
-//  ]
-//}
+//
+//	{
+//	 "images": [
+//	   "ubuntu",
+//	   "bitcoind",
+//	   "centos",
+//	   "clightning",
+//	   "bsdjail",
+//	   "lnd",
+//	   "freebsd",
+//	   "debian",
+//	   "freebsd-ufs",
+//	   "netbsd",
+//	   "openbsd"
+//	 ]
+//	}
 type images struct {
 	Images []string
 }
@@ -110,7 +112,7 @@ func createVmDialogue(pubkey string, name string) {
 		defer res.Body.Close()
 	}
 
-	body, readErr := ioutil.ReadAll(res.Body)
+	body, readErr := io.ReadAll(res.Body)
 	if readErr != nil {
 		log.Fatal(readErr)
 	}
@@ -125,7 +127,7 @@ func createVmDialogue(pubkey string, name string) {
 
 	prompt = promptui.Select{
 		Label: "Select VM image",
-//		Items: []string{"centos7", "centos8", "ubuntu", "debian", "freebsd_ufs", "freebsd_zfs", "openbsd", "netbsd"},
+		//		Items: []string{"centos7", "centos8", "ubuntu", "debian", "freebsd_ufs", "freebsd_zfs", "openbsd", "netbsd"},
 		Items: images1.Images,
 	}
 

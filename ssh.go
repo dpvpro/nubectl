@@ -1,11 +1,9 @@
-//
 package main
 
 import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -17,11 +15,11 @@ import (
 	"syscall"
 
 	"golang.org/x/crypto/ssh"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 )
 
 func PublicKeyFile(file string) (ssh.AuthMethod, error) {
-	buffer, err := ioutil.ReadFile(file)
+	buffer, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
@@ -101,13 +99,13 @@ func doSSH(sshKeyPath string, username string, hostname string, port int) {
 		defer session.Close()
 
 		fd := int(os.Stdin.Fd())
-		state, err := terminal.MakeRaw(fd)
+		state, err := term.MakeRaw(fd)
 		if err != nil {
 			fmt.Println(err)
 		}
-		defer terminal.Restore(fd, state)
+		defer term.Restore(fd, state)
 
-		w, h, err := terminal.GetSize(fd)
+		w, h, err := term.GetSize(fd)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -144,7 +142,7 @@ func doSSH(sshKeyPath string, username string, hostname string, port int) {
 				//not for win
 				case syscall.SIGWINCH:
 					fd := int(os.Stdout.Fd())
-					w, h, _ = terminal.GetSize(fd)
+					w, h, _ = term.GetSize(fd)
 					session.WindowChange(h, w)
 				}
 			}
@@ -180,8 +178,7 @@ func sshResource(name string, keyID string) {
 	}
 	defer response.Body.Close()
 
-
-	body, _ := ioutil.ReadAll(response.Body)
+	body, _ := io.ReadAll(response.Body)
 	decoder := json.NewDecoder(strings.NewReader(string(body)))
 
 	for {

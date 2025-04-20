@@ -3,10 +3,11 @@ package main
 import (
 	"crypto/md5"
 	"fmt"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
 	"log"
+	"os"
 	"strings"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Env struct {
@@ -29,7 +30,7 @@ type Vm struct {
 }
 
 func readKey(keypath string) []byte {
-	mykey, err := ioutil.ReadFile(keypath) // just pass the file name
+	mykey, err := os.ReadFile(keypath) // just pass the file name
 	if err != nil {
 		fmt.Print(err)
 	}
@@ -49,7 +50,7 @@ func getToken(keypath string) string {
 func readCloudConfig() Env {
 	environment := Env{}
 
-	yamlFile, err := ioutil.ReadFile("cloud.yaml")
+	yamlFile, err := os.ReadFile("cloud.yaml")
 	if err != nil {
 		log.Printf("yamlFile.Get err   #%v ", err)
 	}

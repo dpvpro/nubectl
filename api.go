@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strconv"
@@ -30,7 +30,7 @@ func createJail(disksize string, key string, name string) {
 		"pubkey": "` + key + `"
 	}`)
 
-//	fmt.Println(string(jsonData))
+	//	fmt.Println(string(jsonData))
 
 	request, error := http.NewRequest("POST", httpposturl, bytes.NewBuffer(jsonData))
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
@@ -44,7 +44,7 @@ func createJail(disksize string, key string, name string) {
 
 	fmt.Println("response Status:", response.Status)
 	//fmt.Println("response Headers:", response.Header)
-	body, _ := ioutil.ReadAll(response.Body)
+	body, _ := io.ReadAll(response.Body)
 	fmt.Println("response Body:", string(body))
 }
 
@@ -75,7 +75,7 @@ func createVM(image string, cores int, ramsize string, disksize string, key stri
 
 	fmt.Println("response Status:", response.Status)
 	//fmt.Println("response Headers:", response.Header)
-	body, _ := ioutil.ReadAll(response.Body)
+	body, _ := io.ReadAll(response.Body)
 	fmt.Println("response Body:", string(body))
 }
 
@@ -107,7 +107,7 @@ func getStatus(name string, keyID string) {
 
 	fmt.Fprintln(os.Stderr, "response Status:", response.Status)
 	//fmt.Println("response Headers:", response.Header)
-	body, _ := ioutil.ReadAll(response.Body)
+	body, _ := io.ReadAll(response.Body)
 	fmt.Fprintln(os.Stderr, "response Body:")
 	fmt.Println(string(body))
 }
@@ -129,7 +129,7 @@ func listCluster(keyID string) {
 
 	fmt.Println("response Status:", response.Status)
 	//fmt.Println("response Headers:", response.Header)
-	body, _ := ioutil.ReadAll(response.Body)
+	body, _ := io.ReadAll(response.Body)
 	fmt.Println("response Body:", string(body))
 }
 
@@ -151,6 +151,6 @@ func destroyResource(name string, keyID string) {
 
 	fmt.Println("response Status:", response.Status)
 	//fmt.Println("response Headers:", response.Header)
-	body, _ := ioutil.ReadAll(response.Body)
+	body, _ := io.ReadAll(response.Body)
 	fmt.Println("response Body:", string(body))
 }
